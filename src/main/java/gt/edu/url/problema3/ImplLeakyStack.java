@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package gt.edu.url.problema3;
-
+import java.util.NoSuchElementException;
 /**
  *
  * @author Erick Contreras
@@ -36,10 +36,10 @@ public class ImplLeakyStack<E> implements LeakyStack<E>{
 
     @Override
     public E saveHistory(E e) {
-        if (history.size() == maxSize) {
+        if (size() == maxSize) {
             return this.leak(e);
         }else{
-            history.addLast(e);
+            history.addFirst(e);
         }
         return e;
     }
@@ -51,8 +51,11 @@ public class ImplLeakyStack<E> implements LeakyStack<E>{
 
     @Override
     public E undo() {
-       
-        return history.removeFirst();
+        if (size()==0) {
+            throw new IllegalArgumentException(Integer.toString(size()));
+        }else{
+          return history.removeFirst();
+        }
     }
     
 }
